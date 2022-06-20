@@ -1,0 +1,25 @@
+variables:
+  PROJECT_DIR: "app"
+
+cache:
+  key: "$CI_PROJECT_NAME"
+
+before_script:
+    - source /configure_registry.sh
+stages:
+    - deploy
+  
+deploy:
+  image: docker:latest
+  stage: deploy
+  script:
+    - TAG=`date '+%Y-%m-%d-%H-%M'`
+    - docker build --tag $CI_PROJECT_NAME .
+    - docker tag $CI_PROJECT_NAME $REGISTRY_HOST/various/$CI_PROJECT_NAME:$TAG
+    - docker tag $CI_PROJECT_NAME $REGISTRY_HOST/various/$CI_PROJECT_NAME:latest
+    - docker login $REGISTRY_HOST -u $REGISTRY_USER -p $REGISTRY_PASSWORD
+    - docker push $REGISTRY_HOST/various/$CI_PROJECT_NAME:$TAG
+    - docker push $REGISTRY_HOST/various/$CI_PROJECT_NAME:latest
+  only:
+    - master
+
