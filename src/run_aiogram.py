@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=config.token)
 dp = Dispatcher(bot)
 
-my_telegram_id = 1038801897
+my_telegram_id = 123123123213
 
 
 @dp.message_handler(commands=['user_list'])
