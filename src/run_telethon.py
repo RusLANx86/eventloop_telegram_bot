@@ -9,12 +9,12 @@ import json
 
 
 async def get_group_members_info():
-    api_id = 17367814
-    api_hash = '941cb8f28ab6fc9c46b4bc9b988f6680'
-    username = 'orpo_session'
-    phone = '+9276869838'
-    channel_href = 'https://t.me/+y1VuWHdQildkYmUy'
-    chat_id = '-769218299'
+    api_id = 123
+    api_hash = ''
+    username = 'username_session'
+    phone = '+1234567890'
+    channel_href = 'https://t.me/+werwerwer'
+    chat_id = '-1123123123'
 
     client = TelegramClient('orpo_session', api_id=api_id, api_hash=api_hash)
     client.start()
