@@ -19,9 +19,9 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 # Присваиваем значения внутренним переменным
-api_id = 17367814
-api_hash = '941cb8f28ab6fc9c46b4bc9b988f6680'
-username = 'orpo_session'
+api_id = 123
+api_hash = ''
+username = 'username_session'
 url = 'test_group_bot'
 
 client = TelegramClient(username, api_id, api_hash)
