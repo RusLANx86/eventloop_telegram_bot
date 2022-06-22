@@ -14,8 +14,8 @@ from telethon.tl.types import ChannelParticipantsSearch, InputChannel
 
 phone = ''
 limit = 100
-api_id = 17367814
-api_hash = '941cb8f28ab6fc9c46b4bc9b988f6680'
+api_id = 0
+api_hash = ''
 
 
 async def get_chat_info(username, client):
