@@ -1,10 +1,17 @@
 import asyncio
 import datetime
 import logging
+from uuid import uuid4
+from datetime import datetime as dt
+
 import config
 from aiogram import Bot, Dispatcher, executor, types
+from aiogram.utils.markdown import link
 from database.birth_days import dict_days
-from get_users.get_users import get_channel_users
+from get_users.framework_pyrogram import get_channel_users
+
+from database import database as db
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -23,6 +30,32 @@ async def echo_msg(msg: types.Message):
         names.append(name)
         print(name)
     await msg.reply(names)
+
+
+@dp.message_handler(commands=['Катушка'])
+async def create_katushka(msg: types.Message):
+    customer = msg.from_user
+    id_katushka = uuid4()
+    text = link('Перейдите по ссылке! =)', f'192.168.128.11:5000/race/{id_katushka}')
+
+    bike_ride = db.BikeRides()
+    bike_ride.uid = str(id_katushka)
+    bike_ride.creator = customer.full_name
+    bike_ride.ride_datetime = dt.utcnow()
+    bike_ride.meet_time = dt.now().time()
+
+    db.session.add(bike_ride)
+    db.session.commit()
+
+    await msg.reply(text=text)
+    # await msg.reply(text=f'[\<{customer.first_name}, Перейдите по ссылке\>](\<192.168.128.11:5000\>)', parse_mode='MarkdownV2')
+
+
+@dp.message_handler(commands=['анкета'])
+async def user_info(msg: types.Message):
+    chat_id = msg.chat.id.__str__()
+    chat_name = msg.chat.full_name
+    await msg.reply(text='Введите свое имя')
 
 
 @dp.message_handler()
@@ -54,10 +87,17 @@ async def reminder():
                 print(man)
             await bot.send_message(chat_id=config.chat_id, text=text)
         # await asyncio.sleep(3600*(9+(24-hours))) #Подсчет секунд до 9 утра следущего дня
-        await asyncio.sleep(3)
+        await asyncio.sleep(60000)
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.create_task(reminder())
+
+    from flask_app import run_app
+    from threading import Thread
+
+    t = Thread(target=run_app, args={"__name__": __name__})
+    t.start()
+
     executor.start_polling(dp, skip_updates=True)

@@ -1,0 +1,68 @@
+<html>
+<head>
+</head>
+<body>
+<div>
+   <div>
+      <p>{{ ride_data["creator"] }}</p>
+   </div>
+   <div>
+      <header>
+         <div>
+            <h2>Катушка ID: {{ ride_data["uid"] }}</h2>
+            <p>Нашинская, бесплатная</p>
+         </div>
+      </header>
+      <div>
+         <div>
+            <div>
+               <div>
+                  <input placeholder="{{ ride_data['ride_name'] }}" type="text" name="Nazvanie_katushki">
+                  <span>Сюда пишем название катушки</span>
+                  <span></span>
+                  <span></span>
+               </div>
+               <div>
+                  <p>Точка сбора</p>
+                  <input placeholder="{{ ride_data['meet_point'] }}" type="text" name="Tochka_sbora">
+                  <span>Сюда пишем локацию сбора</span>
+                  <span></span>
+               </div>
+               <div>
+                  <p>Дата катушки</p>
+                  <sup> * </sup>
+                  <small>Сюда пишем дату катушки</small>
+               </div>
+               <div>
+                  <p>Время начала катушки</p>
+                  <sup> * </sup>
+               </div>
+               <div>
+                  <input type="hidden" data-input="true" name="Vremya_nachala_katushki" readonly="readonly" value="">
+                  <input tabindex="1" type="time" placeholder=""><!---->
+               </div>
+               <small>Сюда пишем начало катушки</small>
+            </div>
+         </div>
+      </div>
+      <div>
+         <p>Начало сбора</p>
+         <div>
+         </div>
+         <small>Сюда пишем время начала сбора катушки</small>
+      </div>
+      <div>
+         <p>Описание катушки</p>
+         <sup> * </sup>
+         <div>
+            <textarea placeholder="{{ ride_data['description'] }}" name="Opisanie_katushki"></textarea>
+            <small>Укажите подробно куда едем какой километраж какая дорога что с собой брать </small>
+         </div>
+         <button>
+            <span> Поехали! </span>
+         </button>
+      </div>
+   </div>
+</div>
+</body>
+</html>

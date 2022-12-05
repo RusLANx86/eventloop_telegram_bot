@@ -24,7 +24,6 @@ async def get_group_members_info():
     async for dialog in dialogs:
         print(dialog)
 
-
     channel = await client.get_entity('test_group_bot')
 
     members_telethon_list = await client.get_participants(channel, aggressive=True)

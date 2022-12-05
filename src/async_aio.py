@@ -2,7 +2,7 @@ from aiogram import Dispatcher, executor, Bot
 from aiogram import types
 import asyncio
 import config
-from get_users.get_users import get_channel_users
+from get_users.framework_pyrogram import get_channel_users
 
 dp = Dispatcher(Bot(token=config.token))
 
