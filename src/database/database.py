@@ -17,8 +17,8 @@ class BikeRides(BASE):
     creator = Column(TEXT, nullable=False)
     ride_name = Column(TEXT, default='')
     meet_point = Column(TEXT, default='')
-    ride_datetime = Column(DATETIME)
-    meet_time = Column(TIME)
+    ride_datetime = Column(TEXT)
+    meet_time = Column(TEXT)
     description = Column(TEXT, default='')
 
 

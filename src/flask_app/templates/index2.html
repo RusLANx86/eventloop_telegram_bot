@@ -1,15 +1,17 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 </head>
 <body>
+
 <div>
    <div>
       <p>{{ ride_data["creator"] }}</p>
    </div>
+   <form action="/race/go" method="post">
    <div>
       <header>
          <div>
-            <h2>Катушка ID: {{ ride_data["uid"] }}</h2>
+            <input type="hidden" name="id" value="{{ ride_data['id'] }}"/>
             <p>Нашинская, бесплатная</p>
          </div>
       </header>
@@ -38,8 +40,9 @@
                   <sup> * </sup>
                </div>
                <div>
-                  <input type="hidden" data-input="true" name="Vremya_nachala_katushki" readonly="readonly" value="">
-                  <input tabindex="1" type="time" placeholder=""><!---->
+<!--                  <input type="hidden" data-input="true"  readonly="readonly">-->
+                  <input type="time" name="Vremya_nachala_katushki" step="60" value="00:00"/>
+                  <span class="validity"></span>
                </div>
                <small>Сюда пишем начало катушки</small>
             </div>
@@ -58,11 +61,11 @@
             <textarea placeholder="{{ ride_data['description'] }}" name="Opisanie_katushki"></textarea>
             <small>Укажите подробно куда едем какой километраж какая дорога что с собой брать </small>
          </div>
-         <button>
-            <span> Поехали! </span>
-         </button>
+            <input type="submit" value="Поехали!">
       </div>
    </div>
+   </form>
 </div>
+
 </body>
 </html>
