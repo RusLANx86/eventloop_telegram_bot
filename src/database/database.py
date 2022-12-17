@@ -1,9 +1,12 @@
+import os
+
 from sqlalchemy import create_engine, Column, TEXT, INTEGER, BOOLEAN, FLOAT, DATETIME, TIME
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-url_db = 'database/sqlite3.db'
-engine = create_engine('sqlite:///{}'.format(url_db), connect_args={'check_same_thread': False})
+
+file_path = os.path.abspath(os.getcwd()) + "\src\database\sqlite3.db"
+engine = create_engine('sqlite:///{}'.format(file_path), connect_args={'check_same_thread': False})
 session = Session(engine)
 
 BASE = declarative_base()

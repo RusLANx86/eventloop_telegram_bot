@@ -44,12 +44,12 @@ def run_app(__name__):
 
         data_to_bot = schemas.RidesSchema().dump(item)
         text = f"Время встречи: {data_to_bot['meet_time']}\n" \
-               f"Время начала катушки: {data_to_bot['Vremya_nachala_katushki']}" \
+               f"Время начала катушки: {data_to_bot['Vremya_nachala_katushki']}\n" \
                f"Зайтейник: {data_to_bot['creator']}\n" \
                f"Название катушки: {data_to_bot['Nazvanie_katushki']}\n" \
                f"Точка сбора: {data_to_bot['Tochka_sbora']}\n" \
                f"Описание: {data_to_bot['Opisanie_katushki']}"
-        send_message(chat_id=config.my_telegram_id, text=text)
+        send_message(chat_id=config.test_group_bot, text=text)
 
         return redirect('/')
 
