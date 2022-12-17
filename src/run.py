@@ -4,6 +4,8 @@ import logging
 from uuid import uuid4
 from datetime import datetime as dt
 
+import requests
+
 import config
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.utils.markdown import link
@@ -17,8 +19,6 @@ logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=config.token)
 dp = Dispatcher(bot)
-
-my_telegram_id = 0
 
 
 @dp.message_handler(commands=['user_list'])
@@ -36,8 +36,7 @@ async def echo_msg(msg: types.Message):
 async def create_katushka(msg: types.Message):
     customer = msg.from_user
     id_katushka = uuid4()
-    text = link('Перейдите по ссылке! =)', f'192.168.128.11:5000/race/{id_katushka}')
-
+    text = link('Перейдите по ссылке! =)', f'192.168.1.67:5000/race/{id_katushka}')
     bike_ride = db.BikeRides()
     bike_ride.uid = str(id_katushka)
     bike_ride.creator = customer.full_name
@@ -58,18 +57,18 @@ async def user_info(msg: types.Message):
     await msg.reply(text='Введите свое имя')
 
 
-@dp.message_handler()
-async def echo_msg_pm(msg: types.Message):
-    chat_id = msg.chat.id.__str__()
-    thread_id = msg.message_thread_id  # ID топика
-    chat_name = msg.chat.full_name
-    text = msg.text
-    # await bot.send_message(chat_id=my_telegram_id, text=chat_id)
-    await bot.send_message(
-        message_thread_id=thread_id,
-        chat_id=chat_id,
-        text='{id} - {chat_name} - {text}'.format(id=chat_id, chat_name=chat_name, text=text)
-    )
+# @dp.message_handler()
+# async def echo_msg_pm(msg: types.Message):
+#     chat_id = msg.chat.id.__str__()
+#     thread_id = msg.message_thread_id  # ID топика
+#     chat_name = msg.chat.full_name
+#     text = msg.text
+#     # await bot.send_message(chat_id=my_telegram_id, text=chat_id)
+#     await bot.send_message(
+#         message_thread_id=thread_id,
+#         chat_id=chat_id,
+#         text='{id} - {chat_name} - {text}'.format(id=chat_id, chat_name=chat_name, text=text)
+#     )
 
 
 async def reminder():

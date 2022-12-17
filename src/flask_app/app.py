@@ -1,10 +1,19 @@
+import requests as requests
 from flask import Flask, render_template, request, redirect
 from database import database as db
 from database import schemas
+import config
 
 
 def run_app(__name__):
     app = Flask(__name__, template_folder="flask_app/templates", static_folder="flask_app/static")
+
+    def send_message(chat_id, text):
+        method = "sendMessage"
+        token = config.token
+        url = f"https://api.telegram.org/bot{token}/{method}"
+        data = {"chat_id": chat_id, "text": text}
+        requests.post(url, data=data)
 
     @app.route('/race/<_id>')
     def open_race(_id):
@@ -32,6 +41,15 @@ def run_app(__name__):
         item.ride_name = additional_ride_data["ride_name"]
 
         db.session.commit()
+
+        data_to_bot = schemas.RidesSchema().dump(item)
+        text = f"Время встречи: {data_to_bot['meet_time']}\n" \
+               f"Время начала катушки: {data_to_bot['Vremya_nachala_katushki']}" \
+               f"Зайтейник: {data_to_bot['creator']}\n" \
+               f"Название катушки: {data_to_bot['Nazvanie_katushki']}\n" \
+               f"Точка сбора: {data_to_bot['Tochka_sbora']}\n" \
+               f"Описание: {data_to_bot['Opisanie_katushki']}"
+        send_message(chat_id=config.my_telegram_id, text=text)
 
         return redirect('/')
 

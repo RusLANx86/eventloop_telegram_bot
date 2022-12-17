@@ -3,3 +3,4 @@
 /docker/
 /.idea/
 __pycache__
+config.py
